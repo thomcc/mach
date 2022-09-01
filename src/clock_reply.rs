@@ -1,9 +1,9 @@
 //! This module roughly corresponds to `mach/clock_reply.h`.
 
-use crate::clock_types::{alarm_type_t, mach_timespec_t};
-use crate::kern_return::kern_return_t;
-use crate::mach_types::clock_reply_t;
-use crate::message::mach_msg_type_name_t;
+use super::clock_types::{alarm_type_t, mach_timespec_t};
+use super::kern_return::kern_return_t;
+use super::mach_types::clock_reply_t;
+use super::message::mach_msg_type_name_t;
 
 extern "C" {
     pub fn clock_alarm_reply(

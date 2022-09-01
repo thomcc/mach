@@ -1,15 +1,18 @@
 //! This module roughly corresponds to `mach/task_info.h`.
 
-use crate::vm_types::{integer_t, mach_vm_address_t, mach_vm_size_t, natural_t};
+use super::vm_types::{integer_t, mach_vm_address_t, mach_vm_size_t, natural_t};
 
 pub const TASK_INFO_MAX: core::ffi::c_uint = 1024;
 pub const TASK_BASIC_INFO_32: core::ffi::c_uint = 4;
 pub const TASK_BASIC2_INFO_32: core::ffi::c_uint = 6;
+#[cfg(target_arch = "aarch64")]
+pub const TASK_BASIC_INFO_64: core::ffi::c_uint = 18;
+#[cfg(not(target_arch = "aarch64"))]
 pub const TASK_BASIC_INFO_64: core::ffi::c_uint = 5;
-#[cfg(target_arch = "x86_64")]
-pub const TASK_BASIC_INFO: core::ffi::c_uint = 5;
-#[cfg(target_arch = "x86")]
-pub const TASK_BASIC_INFO: core::ffi::c_uint = 4;
+#[cfg(target_pointer_width = "64")]
+pub const TASK_BASIC_INFO: core::ffi::c_uint = TASK_BASIC_INFO_64;
+#[cfg(target_pointer_width = "32")]
+pub const TASK_BASIC_INFO: core::ffi::c_uint = TASK_BASIC_INFO_32;
 pub const TASK_EVENTS_INFO: core::ffi::c_uint = 2;
 pub const TASK_THREAD_TIMES_INFO: core::ffi::c_uint = 3;
 pub const TASK_ABSOLUTETIME_INFO: core::ffi::c_uint = 1;

@@ -14,8 +14,8 @@
 #![no_std]
 // extern crate core;
 
-#[cfg(not(target_vendor = "apple"))]
-compile_error!("mach requires MacOSX or iOS");
+// #[cfg(not(target_vendor = "apple"))]
+// compile_error!("mach requires MacOSX or iOS");
 
 // #[cfg(feature = "rustc-dep-of-std")]
 // extern crate rustc_std_workspace_core as core;

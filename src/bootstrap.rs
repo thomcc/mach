@@ -1,8 +1,8 @@
 //! This module corresponds to `bootstrap.h`
 
-use crate::boolean::boolean_t;
-use crate::kern_return::kern_return_t;
-use crate::port::mach_port_t;
+use super::boolean::boolean_t;
+use super::kern_return::kern_return_t;
+use super::port::mach_port_t;
 
 pub const BOOTSTRAP_MAX_NAME_LEN: core::ffi::c_uint = 128;
 pub const BOOTSTRAP_MAX_CMD_LEN: core::ffi::c_uint = 512;

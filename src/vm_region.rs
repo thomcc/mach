@@ -1,12 +1,12 @@
 //! This module roughly corresponds to `mach/vm_region.h`.
 
-use crate::boolean::boolean_t;
-use crate::memory_object_types::{memory_object_offset_t, vm_object_id_t};
-use crate::message::mach_msg_type_number_t;
-use crate::vm_behavior::vm_behavior_t;
-use crate::vm_inherit::vm_inherit_t;
-use crate::vm_prot::vm_prot_t;
-use crate::vm_types::{mach_vm_address_t, mach_vm_size_t};
+use super::boolean::boolean_t;
+use super::memory_object_types::{memory_object_offset_t, vm_object_id_t};
+use super::message::mach_msg_type_number_t;
+use super::vm_behavior::vm_behavior_t;
+use super::vm_inherit::vm_inherit_t;
+use super::vm_prot::vm_prot_t;
+use super::vm_types::{mach_vm_address_t, mach_vm_size_t};
 use core::mem;
 
 pub type vm32_object_id_t = u32;
@@ -75,7 +75,7 @@ impl vm_region_basic_info_64 {
     }
 }
 
-#[repr(C)]
+#[repr(C, packed(4))]
 #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
 pub struct vm_region_basic_info {
     pub protection: vm_prot_t,
@@ -94,7 +94,7 @@ impl vm_region_basic_info {
     }
 }
 
-#[repr(C)]
+#[repr(C, packed(4))]
 #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
 pub struct vm_region_extended_info {
     pub protection: vm_prot_t,
@@ -116,7 +116,7 @@ impl vm_region_extended_info {
     }
 }
 
-#[repr(C)]
+#[repr(C, packed(4))]
 #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
 pub struct vm_region_top_info {
     pub obj_id: core::ffi::c_uint,
@@ -132,7 +132,7 @@ impl vm_region_top_info {
     }
 }
 
-#[repr(C)]
+#[repr(C, packed(4))]
 #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
 pub struct vm_region_submap_info {
     pub protection: vm_prot_t,
@@ -181,6 +181,7 @@ pub struct vm_region_submap_info_64 {
     pub object_id: vm32_object_id_t,
     pub user_wired_count: core::ffi::c_ushort,
     pub pages_reusable: core::ffi::c_uint,
+    pub object_id_full: vm_object_id_t,
 }
 
 impl vm_region_submap_info_64 {

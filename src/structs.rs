@@ -1,10 +1,21 @@
 //! This module corresponds to `mach/_structs.h`.
 
-use crate::message::mach_msg_type_number_t;
-use core::mem;
+#[repr(C)]
+#[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
+#[cfg(target_arch = "aarch64")]
+pub struct arm_thread_state64_t {
+    pub __x: [u64; 29],
+    pub __fp: u64,
+    pub __lr: u64,
+    pub __sp: u64,
+    pub __pc: u64,
+    pub __cpsr: u32,
+    pub __pad: u32,
+}
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
+#[cfg(target_arch = "x86_64")]
 pub struct x86_thread_state64_t {
     pub __rax: u64,
     pub __rbx: u64,
@@ -29,8 +40,9 @@ pub struct x86_thread_state64_t {
     pub __gs: u64,
 }
 
+#[cfg(target_arch = "x86_64")]
 impl x86_thread_state64_t {
-    pub fn new() -> Self {
+    pub const fn new() -> Self {
         Self {
             __rax: 0,
             __rbx: 0,
@@ -56,7 +68,8 @@ impl x86_thread_state64_t {
         }
     }
 
-    pub fn count() -> mach_msg_type_number_t {
-        (mem::size_of::<Self>() / mem::size_of::<core::ffi::c_int>()) as mach_msg_type_number_t
+    pub const fn count() -> super::message::mach_msg_type_number_t {
+        (core::mem::size_of::<Self>() / core::mem::size_of::<core::ffi::c_int>())
+            as super::message::mach_msg_type_number_t
     }
 }

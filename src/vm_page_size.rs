@@ -1,6 +1,6 @@
 //! This module roughly corresponds to `mach/vm_page_size.h`
 
-use crate::vm_types::{mach_vm_offset_t, mach_vm_size_t, vm_size_t};
+use super::vm_types::{mach_vm_offset_t, mach_vm_size_t, vm_size_t};
 
 extern "C" {
     pub static vm_page_size: vm_size_t;
@@ -18,8 +18,8 @@ pub unsafe fn mach_vm_round_page(x: mach_vm_offset_t) -> mach_vm_offset_t {
 
 #[cfg(test)]
 mod tests {
-    use crate::vm_page_size::*;
-    use crate::vm_types::mach_vm_size_t;
+    use super::super::vm_page_size::*;
+    use super::super::vm_types::mach_vm_size_t;
 
     #[test]
     fn page_size() {

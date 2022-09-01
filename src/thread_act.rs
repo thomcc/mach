@@ -1,9 +1,9 @@
 //! This module corresponds to `mach/thread_act.defs`.
 
-use crate::kern_return::kern_return_t;
-use crate::mach_types::thread_act_t;
-use crate::message::mach_msg_type_number_t;
-use crate::thread_status::{thread_state_flavor_t, thread_state_t};
+use super::kern_return::kern_return_t;
+use super::mach_types::thread_act_t;
+use super::message::mach_msg_type_number_t;
+use super::thread_status::{thread_state_flavor_t, thread_state_t};
 
 extern "C" {
     pub fn thread_get_state(

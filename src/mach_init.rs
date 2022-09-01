@@ -1,6 +1,6 @@
 //! This module corresponds to `mach/mach_init.h`.
 
-use crate::mach_types::thread_port_t;
+use super::mach_types::thread_port_t;
 
 extern "C" {
     pub fn mach_thread_self() -> thread_port_t;
@@ -8,8 +8,8 @@ extern "C" {
 
 #[cfg(test)]
 mod tests {
-    use crate::mach_init::*;
-    use crate::port::*;
+    use super::super::mach_init::*;
+    use super::super::port::*;
 
     #[test]
     fn mach_thread_self_test() {

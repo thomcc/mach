@@ -31,8 +31,8 @@ deprecated = []
 # rustc-dep-of-std = ['rustc-std-workspace-core', 'libc/rustc-dep-of-std']
 
 [workspace]
-exclude = ["mach-test"]
-# members = ["mach-test"]
+# exclude = ["mach-test"]
+members = ["mach-test"]
 
 [package.metadata.docs.rs]
 default-target = "x86_64-apple-darwin"

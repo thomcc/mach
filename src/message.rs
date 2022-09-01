@@ -1,8 +1,8 @@
 //! This module corresponds to `mach/message.h`.
 
-use crate::kern_return::kern_return_t;
-use crate::port::{mach_port_name_t, mach_port_t};
-use crate::vm_types::{integer_t, natural_t};
+use super::kern_return::kern_return_t;
+use super::port::{mach_port_name_t, mach_port_t};
+use super::vm_types::{integer_t, natural_t};
 
 pub type mach_msg_timeout_t = natural_t;
 
@@ -79,13 +79,23 @@ pub const MACH_SEND_ALWAYS: mach_msg_option_t = 0x0001_0000;
 pub const MACH_SEND_TRAILER: mach_msg_option_t = 0x0002_0000;
 pub const MACH_SEND_NOIMPORTANCE: mach_msg_option_t = 0x0004_0000;
 pub const MACH_SEND_NODENAP: mach_msg_option_t = MACH_SEND_NOIMPORTANCE;
+
 pub const MACH_SEND_IMPORTANCE: mach_msg_option_t = 0x0008_0000;
 
-pub const MACH_RCV_TIMEOUT: mach_msg_option_t = 0x0000_0100;
-pub const MACH_RCV_NOTIFY: mach_msg_option_t = 0x0000_0200;
-pub const MACH_RCV_INTERRUPT: mach_msg_option_t = 0x0000_0400;
-pub const MACH_RCV_VOUCHER: mach_msg_option_t = 0x0000_0800;
-pub const MACH_RCV_OVERWRITE: mach_msg_option_t = 0x0000_1000;
+pub const MACH_RCV_TIMEOUT: mach_msg_option_t = 0x00000100; /* timeout value applies to receive */
+pub const MACH_RCV_NOTIFY: mach_msg_option_t = 0x00000000; /* legacy name (value was: 0x00000200) */
+pub const MACH_RCV_INTERRUPT: mach_msg_option_t = 0x00000400; /* don't restart interrupted receive */
+pub const MACH_RCV_VOUCHER: mach_msg_option_t = 0x00000800; /* willing to receive voucher port */
+pub const MACH_RCV_OVERWRITE: mach_msg_option_t = 0x00000000; /* scatter receive (deprecated) */
+pub const MACH_RCV_GUARDED_DESC: mach_msg_option_t = 0x00001000; /* Can receive new guarded descriptor */
+pub const MACH_RCV_SYNC_WAIT: mach_msg_option_t = 0x00004000; /* sync waiter waiting for rcv */
+pub const MACH_RCV_SYNC_PEEK: mach_msg_option_t = 0x00008000; /* sync waiter waiting to peek */
+
+// pub const MACH_RCV_TIMEOUT: mach_msg_option_t = 0x0000_0100;
+// pub const MACH_RCV_NOTIFY: mach_msg_option_t = 0x0000_0200;
+// pub const MACH_RCV_INTERRUPT: mach_msg_option_t = 0x0000_0400;
+// pub const MACH_RCV_VOUCHER: mach_msg_option_t = 0x0000_0800;
+// pub const MACH_RCV_OVERWRITE: mach_msg_option_t = 0x0000_1000;
 
 pub const MACH_MSG_SUCCESS: mach_msg_return_t = 0x0000_0000;
 

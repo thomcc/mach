@@ -1,6 +1,6 @@
 //! This module corresponds to `mach/mach_types.h`
 
-use crate::port::mach_port_t;
+use super::port::mach_port_t;
 
 pub type task_t = mach_port_t;
 pub type task_name_t = mach_port_t;

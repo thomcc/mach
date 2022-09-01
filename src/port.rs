@@ -1,6 +1,6 @@
 //! This module corresponds to `mach/port.h`
 
-use crate::vm_types::natural_t;
+use super::vm_types::natural_t;
 
 pub type mach_port_name_t = natural_t;
 

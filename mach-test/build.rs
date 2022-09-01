@@ -1,17 +1,18 @@
-extern crate ctest;
+use std::{path::PathBuf, process::Command};
 
-#[derive(Eq, Ord, PartialEq, PartialOrd, Copy, Clone, Debug)]
-struct Xcode(pub u32, pub u32);
+extern crate ctest2;
+
+#[derive(Eq, PartialEq, PartialOrd, Ord, Copy, Clone, Debug)]
+struct Xcode(pub u32, pub u32, pub u32);
 
 impl Xcode {
     fn version() -> Xcode {
-        use std::process::Command;
-        let out = Command::new("/usr/bin/xcodebuild")
+        let out = Command::new("xcodebuild")
             .arg("-version")
             .output()
             .expect("failed to execute xcodebuild");
-        let stdout = ::std::str::from_utf8(&out.stdout).expect("couldn't parse stdout as UTF8");
-        let stderr = ::std::str::from_utf8(&out.stderr).expect("couldn't parse stderr as UTF8");
+        let stdout = std::str::from_utf8(&out.stdout).unwrap();
+        let stderr = std::str::from_utf8(&out.stderr).unwrap();
 
         if !out.status.success() {
             eprintln!("stdout: {}", stdout);
@@ -21,19 +22,19 @@ impl Xcode {
 
         // xcodebuild -version output looks like:
         //
-        // Xcode 9.2
-        // Build version 9C40b
-        let mut iter = stdout
-            .split(|c: char| c.is_whitespace() || c == '.')
-            .skip(1)
-            .map(|c| {
-                c.parse()
-                    .expect("failed to parse Xcode version into number")
-            });
-        let major: u32 = iter.next().expect("failed to parse Xcode major version");
-        let minor: u32 = iter.next().expect("failed to parse Xcode minor version");
+        // Xcode 13.4.1
+        // Build version 13F100
+        // patch version may be optional.
+        let out = stdout.trim();
+        let (xcode, _build) = out.split_once('\n').unwrap_or((out, ""));
+        let xcv = xcode.strip_prefix("Xcode ").unwrap().trim();
+        let mut iter = xcv.split('.');
 
-        Xcode(major, minor)
+        let major: u32 = iter.next().and_then(|c| c.parse().ok()).unwrap();
+        let minor: u32 = iter.next().and_then(|c| c.parse().ok()).unwrap();
+        let patch: u32 = iter.next().and_then(|c| c.parse().ok()).unwrap_or(0u32);
+
+        Xcode(major, minor, patch)
     }
 }
 
@@ -42,7 +43,7 @@ fn main() {
     // kept on purpose for debugging:
     // println!("cargo:warning=\"Xcode version: {:?}\"", xcode);
 
-    let mut cfg = ctest::TestGenerator::new();
+    let mut cfg = ctest2::TestGenerator::new();
 
     // Older Xcode versions fail with:
     // error: unknown warning option '-Wno-address-of-packed-member'
@@ -59,7 +60,7 @@ fn main() {
         .header("mach/clock_reply.h")
         .header("mach/clock_types.h");
 
-    if xcode >= Xcode(8, 0) {
+    if xcode.0 >= 8 {
         cfg.header("mach/dyld_kernel.h");
     }
 
@@ -119,7 +120,7 @@ fn main() {
         .header("mach/thread_policy.h")
         .header("mach/thread_special_ports.h");
 
-    if xcode >= Xcode(7, 0) {
+    if xcode.0 >= 7 {
         cfg.header("mach/thread_state.h");
     }
 
@@ -161,7 +162,7 @@ fn main() {
             "dyld_kernel_process_info" |
             "fsid" |
             "fsobj_id"
-            if xcode < Xcode(8, 0) => true,
+            if xcode.0 < 8 => true,
             _ => false,
         }
     });
@@ -180,7 +181,7 @@ fn main() {
             | "uuid_t"
             | "fsid_t"
             | "fsobj_id_t"
-                if xcode < Xcode(8, 0) =>
+                if xcode.0 < 8 =>
             {
                 true
             }
@@ -196,7 +197,9 @@ fn main() {
             "mach_task_self" | "current_task" => true,
 
             // These are not available in previous MacOSX versions:
-            "mach_continuous_time" | "mach_continuous_approximate_time" if xcode < Xcode(8, 0) => {
+            "mach_continuous_time" | "mach_continuous_approximate_time"
+                if xcode < Xcode(8, 0, 0) =>
+            {
                 true
             }
             _ => false,
@@ -209,17 +212,17 @@ fn main() {
             "EXC_CORPSE_VARIANT_BIT" => true,
             // Used to have a value of 11 until MacOSX 10.8 and changed to a
             // value of 13 in MacOSX 10.9 ~ Xcode 6.4
-            "VM_REGION_EXTENDED_INFO" if xcode < Xcode(6, 4) => true,
+            "VM_REGION_EXTENDED_INFO" if xcode < Xcode(6, 4, 0) => true,
             // Added in MacOSX 10.11.0 (Xcode 7.3)
             "TASK_VM_INFO_PURGEABLE_ACCOUNT" | "TASK_FLAGS_INFO" | "TASK_DEBUG_INFO_INTERNAL"
-                if xcode < Xcode(7, 3) =>
+                if xcode.0 < 7 =>
             {
                 true
             }
             // Removed after MacOSX 10.6 (does not appear in MacOSX 10.7)
-            "VM_PROT_TRUSTED" if xcode > Xcode(4, 3) => true,
+            "VM_PROT_TRUSTED" if xcode > Xcode(4, 3, 0) => true,
             // Added after MacOSX 10.9 ~ Xcode 6.4
-            "EXC_CORPSE_NOTIFY" | "EXC_MASK_CORPSE_NOTIFY" if xcode <= Xcode(7, 0) => true,
+            "EXC_CORPSE_NOTIFY" | "EXC_MASK_CORPSE_NOTIFY" if xcode <= Xcode(7, 0, 0) => true,
             _ => false,
         }
     });
@@ -334,11 +337,31 @@ fn main() {
         "name_t" | "uuid_t" | "vm_region_info_data_t" | "cmd_t" | "mach_vm_read_entry_t" => true,
         _ => false,
     });
-
     // Include the directory where the header files are defined
-    cfg.include("/usr/include");
+    let include = usr_include().unwrap_or_else(|e| {
+        eprintln!("couldn't get include dir: {:?}", e);
+        "/usr/include".into()
+    });
+    cfg.include(&include);
 
     // Generate the tests, passing the path to the `*-sys` library as well as
     // the module to generate.
     cfg.generate("../src/lib.rs", "all.rs");
+}
+
+fn usr_include() -> Result<PathBuf, std::io::Error> {
+    let out = Command::new("xcrun").arg("--show-sdk-path").output()?;
+    let stdout = String::from_utf8_lossy(&out.stdout).to_string();
+    let stderr = String::from_utf8_lossy(&out.stderr).to_string();
+    dbg!(&stdout, &stderr, &out.status);
+    if out.status.success() {
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::Other,
+            format!("`xcrun --show-sdk-path` exitd with {}", out.status),
+        ));
+    }
+    use std::os::unix::prelude::*;
+    Ok(PathBuf::from(std::ffi::OsString::from_vec(out.stdout))
+        .join("usr")
+        .join("include"))
 }

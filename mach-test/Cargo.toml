@@ -3,13 +3,14 @@ name = "mach-test"
 version = "0.1.0"
 authors = ["gnzlbg <gonzalobg88@gmail.com>"]
 build = "build.rs"
+edition = "2021"
 
 [dependencies]
 mach = { path = ".." }
 libc = "0.2"
 
 [build-dependencies]
-ctest = "0.2"
+ctest2 = "0.4.4"
 
 [[test]]
 name = "main"

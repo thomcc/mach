@@ -1,6 +1,6 @@
 //! This module corresponds to `mach/mach_traps.h`.
-use crate::kern_return::kern_return_t;
-use crate::port::{mach_port_name_t, mach_port_t};
+use super::kern_return::kern_return_t;
+use super::port::{mach_port_name_t, mach_port_t};
 
 extern "C" {
     static mach_task_self_: mach_port_t;
@@ -21,8 +21,8 @@ pub unsafe fn current_task() -> mach_port_t {
 
 #[cfg(test)]
 mod tests {
-    use crate::port::*;
-    use crate::traps::*;
+    use super::super::port::*;
+    use super::super::traps::*;
 
     #[test]
     fn mach_task_self_sanity() {
