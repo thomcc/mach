@@ -20,16 +20,16 @@ use mach::traps::{mach_task_self, task_for_pid};
 
 use std::io::prelude::*;
 
-fn read_int() -> Result<::libc::c_int, ()> {
+fn read_int() -> Result<core::ffi::c_int, ()> {
     let stdin = io::stdin();
     let mut line = String::new();
 
     stdin.read_line(&mut line).ok().unwrap();
-    let mut value: ::libc::c_int = 0;
+    let mut value: core::ffi::c_int = 0;
 
     for c in line.chars().take_while(|&c| c != '\n') {
         if let Some(d) = c.to_digit(10) {
-            value = value * 10 + (d as ::libc::c_int);
+            value = value * 10 + (d as core::ffi::c_int);
         } else {
             return Err(());
         }

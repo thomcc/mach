@@ -6,16 +6,16 @@ use vm_types::{integer_t, natural_t};
 
 pub type mach_msg_timeout_t = natural_t;
 
-pub type mach_msg_bits_t = ::libc::c_uint;
+pub type mach_msg_bits_t = core::ffi::c_uint;
 pub type mach_msg_id_t = integer_t;
 pub type mach_msg_size_t = natural_t;
 
-pub type mach_msg_copy_options_t = ::libc::c_uint;
-pub type mach_msg_descriptor_type_t = ::libc::c_uint;
-pub type mach_msg_type_name_t = ::libc::c_uint;
+pub type mach_msg_copy_options_t = core::ffi::c_uint;
+pub type mach_msg_descriptor_type_t = core::ffi::c_uint;
+pub type mach_msg_type_name_t = core::ffi::c_uint;
 
-pub type mach_msg_trailer_type_t = ::libc::c_uint;
-pub type mach_msg_trailer_size_t = ::libc::c_uint;
+pub type mach_msg_trailer_type_t = core::ffi::c_uint;
+pub type mach_msg_trailer_size_t = core::ffi::c_uint;
 
 pub type mach_msg_option_t = integer_t;
 

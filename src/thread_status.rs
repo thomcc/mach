@@ -3,7 +3,7 @@
 use vm_types::natural_t;
 
 pub type thread_state_t = *mut natural_t;
-pub type thread_state_flavor_t = ::libc::c_int;
+pub type thread_state_flavor_t = core::ffi::c_int;
 
 pub static x86_THREAD_STATE32: thread_state_flavor_t = 1;
 pub static x86_FLOAT_STATE32: thread_state_flavor_t = 2;

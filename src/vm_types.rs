@@ -1,7 +1,7 @@
 //! This module roughly corresponds to `mach/i386/vm_types.h`.
 
-pub type natural_t = ::libc::c_uint;
-pub type integer_t = ::libc::c_int;
+pub type natural_t = core::ffi::c_uint;
+pub type integer_t = core::ffi::c_int;
 
 pub type user_addr_t = u64;
 

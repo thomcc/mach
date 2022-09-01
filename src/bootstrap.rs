@@ -4,30 +4,30 @@ use boolean::boolean_t;
 use kern_return::kern_return_t;
 use port::mach_port_t;
 
-pub const BOOTSTRAP_MAX_NAME_LEN: ::libc::c_uint = 128;
-pub const BOOTSTRAP_MAX_CMD_LEN: ::libc::c_uint = 512;
+pub const BOOTSTRAP_MAX_NAME_LEN: core::ffi::c_uint = 128;
+pub const BOOTSTRAP_MAX_CMD_LEN: core::ffi::c_uint = 512;
 
-pub const BOOTSTRAP_MAX_LOOKUP_COUNT: ::libc::c_uint = 20;
+pub const BOOTSTRAP_MAX_LOOKUP_COUNT: core::ffi::c_uint = 20;
 
-pub const BOOTSTRAP_SUCCESS: ::libc::c_uint = 0;
-pub const BOOTSTRAP_NOT_PRIVILEGED: ::libc::c_uint = 1100;
-pub const BOOTSTRAP_NAME_IN_USE: ::libc::c_uint = 1101;
-pub const BOOTSTRAP_UNKNOWN_SERVICE: ::libc::c_uint = 1102;
-pub const BOOTSTRAP_SERVICE_ACTIVE: ::libc::c_uint = 1103;
-pub const BOOTSTRAP_BAD_COUNT: ::libc::c_uint = 1104;
-pub const BOOTSTRAP_NO_MEMORY: ::libc::c_uint = 1105;
-pub const BOOTSTRAP_NO_CHILDREN: ::libc::c_uint = 1106;
+pub const BOOTSTRAP_SUCCESS: core::ffi::c_uint = 0;
+pub const BOOTSTRAP_NOT_PRIVILEGED: core::ffi::c_uint = 1100;
+pub const BOOTSTRAP_NAME_IN_USE: core::ffi::c_uint = 1101;
+pub const BOOTSTRAP_UNKNOWN_SERVICE: core::ffi::c_uint = 1102;
+pub const BOOTSTRAP_SERVICE_ACTIVE: core::ffi::c_uint = 1103;
+pub const BOOTSTRAP_BAD_COUNT: core::ffi::c_uint = 1104;
+pub const BOOTSTRAP_NO_MEMORY: core::ffi::c_uint = 1105;
+pub const BOOTSTRAP_NO_CHILDREN: core::ffi::c_uint = 1106;
 
-pub const BOOTSTRAP_STATUS_INACTIVE: ::libc::c_uint = 0;
-pub const BOOTSTRAP_STATUS_ACTIVE: ::libc::c_uint = 1;
-pub const BOOTSTRAP_STATUS_ON_DEMAND: ::libc::c_uint = 2;
+pub const BOOTSTRAP_STATUS_INACTIVE: core::ffi::c_uint = 0;
+pub const BOOTSTRAP_STATUS_ACTIVE: core::ffi::c_uint = 1;
+pub const BOOTSTRAP_STATUS_ON_DEMAND: core::ffi::c_uint = 2;
 
 pub type name_t = [::libc::c_char; 128];
 pub type cmd_t = [::libc::c_char; 512];
 pub type name_array_t = *mut name_t;
-pub type bootstrap_status_t = ::libc::c_int;
+pub type bootstrap_status_t = core::ffi::c_int;
 pub type bootstrap_status_array_t = *mut bootstrap_status_t;
-pub type bootstrap_property_t = ::libc::c_uint;
+pub type bootstrap_property_t = core::ffi::c_uint;
 pub type bootstrap_property_array_t = *mut bootstrap_property_t;
 pub type bool_array_t = *mut boolean_t;
 

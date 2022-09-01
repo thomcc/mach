@@ -20,18 +20,19 @@ is-it-maintained-issue-resolution = { repository = "fitzgen/mach" }
 is-it-maintained-open-issues = { repository = "fitzgen/mach" }
 maintenance = { status = "passively-maintained" }
 
-[target.'cfg(any(target_os = "macos", target_os = "ios"))'.dependencies]
+[target.'cfg(target_vendor = "apple")'.dependencies]
 libc = { version = "0.2", default-features = false }
-rustc-std-workspace-core = { version = "1.0.0", optional = true }
+# rustc-std-workspace-core = { version = "1.0.0", optional = true }
 
 [features]
 default = []
 # Enables deprecated and removed APIs.
 deprecated = []
-rustc-dep-of-std = ['rustc-std-workspace-core', 'libc/rustc-dep-of-std']
+# rustc-dep-of-std = ['rustc-std-workspace-core', 'libc/rustc-dep-of-std']
 
 [workspace]
-members = ["mach-test"]
+exclude = ["mach-test"]
+# members = ["mach-test"]
 
 [package.metadata.docs.rs]
 default-target = "x86_64-apple-darwin"

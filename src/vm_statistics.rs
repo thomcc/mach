@@ -17,32 +17,32 @@ pub const VM_PAGE_QUERY_PAGE_FICTITIOUS: integer_t = (1 << 1);
 pub const VM_PAGE_QUERY_PAGE_REF: integer_t = (1 << 2);
 pub const VM_PAGE_QUERY_PAGE_DIRTY: integer_t = (1 << 3);
 
-pub const VM_MEMORY_MALLOC: ::libc::c_uint = 1;
-pub const VM_MEMORY_MALLOC_SMALL: ::libc::c_uint = 2;
-pub const VM_MEMORY_MALLOC_LARGE: ::libc::c_uint = 3;
-pub const VM_MEMORY_MALLOC_HUGE: ::libc::c_uint = 4;
-pub const VM_MEMORY_SBRK: ::libc::c_uint = 5;
-pub const VM_MEMORY_ANALYSIS_TOOL: ::libc::c_uint = 10;
-pub const VM_MEMORY_MACH_MSG: ::libc::c_uint = 20;
-pub const VM_MEMORY_IOKIT: ::libc::c_uint = 21;
-pub const VM_MEMORY_STACK: ::libc::c_uint = 30;
-pub const VM_MEMORY_GUARD: ::libc::c_uint = 31;
-pub const VM_MEMORY_SHARED_PMAP: ::libc::c_uint = 32;
-pub const VM_MEMORY_DYLIB: ::libc::c_uint = 33;
-pub const VM_MEMORY_APPKIT: ::libc::c_uint = 40;
-pub const VM_MEMORY_FOUNDATION: ::libc::c_uint = 41;
-pub const VM_MEMORY_COREGRAPHICS: ::libc::c_uint = 42;
-pub const VM_MEMORY_CARBON: ::libc::c_uint = 43;
-pub const VM_MEMORY_JAVA: ::libc::c_uint = 44;
-pub const VM_MEMORY_ATS: ::libc::c_uint = 50;
-pub const VM_MEMORY_DYLD: ::libc::c_uint = 60;
-pub const VM_MEMORY_DYLD_MALLOC: ::libc::c_uint = 61;
-pub const VM_MEMORY_APPLICATION_SPECIFIC_1: ::libc::c_uint = 240;
-pub const VM_MEMORY_APPLICATION_SPECIFIC_16: ::libc::c_uint = 255;
+pub const VM_MEMORY_MALLOC: core::ffi::c_uint = 1;
+pub const VM_MEMORY_MALLOC_SMALL: core::ffi::c_uint = 2;
+pub const VM_MEMORY_MALLOC_LARGE: core::ffi::c_uint = 3;
+pub const VM_MEMORY_MALLOC_HUGE: core::ffi::c_uint = 4;
+pub const VM_MEMORY_SBRK: core::ffi::c_uint = 5;
+pub const VM_MEMORY_ANALYSIS_TOOL: core::ffi::c_uint = 10;
+pub const VM_MEMORY_MACH_MSG: core::ffi::c_uint = 20;
+pub const VM_MEMORY_IOKIT: core::ffi::c_uint = 21;
+pub const VM_MEMORY_STACK: core::ffi::c_uint = 30;
+pub const VM_MEMORY_GUARD: core::ffi::c_uint = 31;
+pub const VM_MEMORY_SHARED_PMAP: core::ffi::c_uint = 32;
+pub const VM_MEMORY_DYLIB: core::ffi::c_uint = 33;
+pub const VM_MEMORY_APPKIT: core::ffi::c_uint = 40;
+pub const VM_MEMORY_FOUNDATION: core::ffi::c_uint = 41;
+pub const VM_MEMORY_COREGRAPHICS: core::ffi::c_uint = 42;
+pub const VM_MEMORY_CARBON: core::ffi::c_uint = 43;
+pub const VM_MEMORY_JAVA: core::ffi::c_uint = 44;
+pub const VM_MEMORY_ATS: core::ffi::c_uint = 50;
+pub const VM_MEMORY_DYLD: core::ffi::c_uint = 60;
+pub const VM_MEMORY_DYLD_MALLOC: core::ffi::c_uint = 61;
+pub const VM_MEMORY_APPLICATION_SPECIFIC_1: core::ffi::c_uint = 240;
+pub const VM_MEMORY_APPLICATION_SPECIFIC_16: core::ffi::c_uint = 255;
 
-pub const VM_FLAGS_FIXED: ::libc::c_int = 0x0;
-pub const VM_FLAGS_ANYWHERE: ::libc::c_int = 0x1;
-pub const VM_FLAGS_OVERWRITE: ::libc::c_int = 0x4000;
+pub const VM_FLAGS_FIXED: core::ffi::c_int = 0x0;
+pub const VM_FLAGS_ANYWHERE: core::ffi::c_int = 0x1;
+pub const VM_FLAGS_OVERWRITE: core::ffi::c_int = 0x4000;
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]

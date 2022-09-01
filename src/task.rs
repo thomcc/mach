@@ -6,7 +6,7 @@ use message::mach_msg_type_number_t;
 use port::mach_port_t;
 use task_info::{task_flavor_t, task_info_t};
 
-pub type task_special_port_t = ::libc::c_int;
+pub type task_special_port_t = core::ffi::c_int;
 
 pub const TASK_KERNEL_PORT: task_special_port_t = 1;
 pub const TASK_HOST_PORT: task_special_port_t = 2;

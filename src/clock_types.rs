@@ -1,28 +1,28 @@
 //! This module roughly corresponds to `mach/clock_types.h`.
 
-pub type alarm_type_t = ::libc::c_int;
-pub type sleep_type_t = ::libc::c_int;
-pub type clock_id_t = ::libc::c_int;
-pub type clock_flavor_t = ::libc::c_int;
-pub type clock_attr_t = *mut ::libc::c_int;
-pub type clock_res_t = ::libc::c_int;
+pub type alarm_type_t = core::ffi::c_int;
+pub type sleep_type_t = core::ffi::c_int;
+pub type clock_id_t = core::ffi::c_int;
+pub type clock_flavor_t = core::ffi::c_int;
+pub type clock_attr_t = *mut core::ffi::c_int;
+pub type clock_res_t = core::ffi::c_int;
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
 pub struct mach_timespec {
-    pub tv_sec: ::libc::c_uint,
+    pub tv_sec: core::ffi::c_uint,
     pub tv_nsec: clock_res_t,
 }
 pub type mach_timespec_t = mach_timespec;
 
-pub const SYSTEM_CLOCK: ::libc::c_uint = 0;
-pub const CALENDAR_CLOCK: ::libc::c_uint = 1;
-pub const REALTIME_CLOCK: ::libc::c_uint = 0;
+pub const SYSTEM_CLOCK: core::ffi::c_uint = 0;
+pub const CALENDAR_CLOCK: core::ffi::c_uint = 1;
+pub const REALTIME_CLOCK: core::ffi::c_uint = 0;
 
-pub const CLOCK_GET_TIME_RES: ::libc::c_uint = 1;
-pub const CLOCK_ALARM_CURRES: ::libc::c_uint = 3;
-pub const CLOCK_ALARM_MINRES: ::libc::c_uint = 4;
-pub const CLOCK_ALARM_MAXRES: ::libc::c_uint = 5;
+pub const CLOCK_GET_TIME_RES: core::ffi::c_uint = 1;
+pub const CLOCK_ALARM_CURRES: core::ffi::c_uint = 3;
+pub const CLOCK_ALARM_MINRES: core::ffi::c_uint = 4;
+pub const CLOCK_ALARM_MAXRES: core::ffi::c_uint = 5;
 
 pub const NSEC_PER_USEC: ::libc::c_ulonglong = 1000;
 pub const USEC_PER_SEC: ::libc::c_ulonglong = 1_000_000;
@@ -65,11 +65,11 @@ pub fn SUB_MACH_TIMESPEC(t1: &mut mach_timespec, t2: &mach_timespec) {
     t1.tv_sec -= t2.tv_sec;
 }
 
-pub const ALRMTYPE: ::libc::c_uint = 0xff;
-pub const TIME_ABSOLUTE: ::libc::c_uint = 0x00;
-pub const TIME_RELATIVE: ::libc::c_uint = 0x01;
+pub const ALRMTYPE: core::ffi::c_uint = 0xff;
+pub const TIME_ABSOLUTE: core::ffi::c_uint = 0x00;
+pub const TIME_RELATIVE: core::ffi::c_uint = 0x01;
 
 #[allow(non_snake_case)]
-pub fn BAD_ALRMTYPE(t: ::libc::c_uint) -> bool {
+pub fn BAD_ALRMTYPE(t: core::ffi::c_uint) -> bool {
     t & (!TIME_RELATIVE) != 0
 }

@@ -27,7 +27,7 @@ extern "C" {
         target: vm_task_entry_t,
         address: *mut mach_vm_address_t,
         size: mach_vm_size_t,
-        flags: ::libc::c_int,
+        flags: core::ffi::c_int,
     ) -> kern_return_t;
 
     pub fn mach_vm_deallocate(
@@ -106,7 +106,7 @@ extern "C" {
         inout: *mut mach_vm_address_t,
         size: mach_vm_size_t,
         mask: mach_vm_offset_t,
-        flags: ::libc::c_int,
+        flags: core::ffi::c_int,
         object: mem_entry_name_port_t,
         offset: memory_object_offset_t,
         copy: boolean_t,
@@ -128,7 +128,7 @@ extern "C" {
         target_address: *mut mach_vm_address_t,
         size: mach_vm_size_t,
         mask: mach_vm_offset_t,
-        flags: ::libc::c_int,
+        flags: core::ffi::c_int,
         src_task: vm_task_entry_t,
         src_address: mach_vm_address_t,
         copy: boolean_t,
@@ -185,7 +185,7 @@ extern "C" {
         target_task: vm_task_entry_t,
         address: mach_vm_address_t,
         control: vm_purgable_t,
-        state: *mut ::libc::c_int,
+        state: *mut core::ffi::c_int,
     ) -> kern_return_t;
 
     pub fn mach_vm_page_info(

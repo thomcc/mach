@@ -11,12 +11,12 @@ use vm_types::{mach_vm_address_t, mach_vm_size_t};
 
 pub type vm32_object_id_t = u32;
 
-pub type vm_region_info_t = *mut ::libc::c_int;
-pub type vm_region_info_64_t = *mut ::libc::c_int;
-pub type vm_region_recurse_info_t = *mut ::libc::c_int;
-pub type vm_region_recurse_info_64_t = *mut ::libc::c_int;
-pub type vm_region_flavor_t = ::libc::c_int;
-pub type vm_region_info_data_t = [::libc::c_int; VM_REGION_INFO_MAX as usize];
+pub type vm_region_info_t = *mut core::ffi::c_int;
+pub type vm_region_info_64_t = *mut core::ffi::c_int;
+pub type vm_region_recurse_info_t = *mut core::ffi::c_int;
+pub type vm_region_recurse_info_64_t = *mut core::ffi::c_int;
+pub type vm_region_flavor_t = core::ffi::c_int;
+pub type vm_region_info_data_t = [core::ffi::c_int; VM_REGION_INFO_MAX as usize];
 
 pub type vm_region_basic_info_64_t = *mut vm_region_basic_info_64;
 pub type vm_region_basic_info_data_64_t = vm_region_basic_info_64;
@@ -32,14 +32,14 @@ pub type vm_region_submap_info_64_t = *mut vm_region_submap_info_64;
 pub type vm_region_submap_info_data_64_t = vm_region_submap_info_64;
 pub type vm_region_submap_short_info_64_t = *mut vm_region_submap_short_info_64;
 pub type vm_region_submap_short_info_data_64_t = vm_region_submap_short_info_64;
-pub type vm_page_info_t = *mut ::libc::c_int;
-pub type vm_page_info_flavor_t = ::libc::c_int;
+pub type vm_page_info_t = *mut core::ffi::c_int;
+pub type vm_page_info_flavor_t = core::ffi::c_int;
 pub type vm_page_info_basic_t = *mut vm_page_info_basic;
 pub type vm_page_info_basic_data_t = vm_page_info_basic;
 pub type mach_vm_read_entry_t = [mach_vm_read_entry; VM_MAP_ENTRY_MAX as usize];
 
-pub const VM_REGION_INFO_MAX: ::libc::c_int = (1 << 10);
-pub const VM_MAP_ENTRY_MAX: ::libc::c_int = (1 << 8);
+pub const VM_REGION_INFO_MAX: core::ffi::c_int = (1 << 10);
+pub const VM_MAP_ENTRY_MAX: core::ffi::c_int = (1 << 8);
 
 pub const VM_PAGE_INFO_BASIC: vm_page_info_flavor_t = 1;
 
@@ -71,7 +71,7 @@ pub struct vm_region_basic_info_64 {
 
 impl vm_region_basic_info_64 {
     pub fn count() -> mach_msg_type_number_t {
-        (mem::size_of::<Self>() / mem::size_of::<::libc::c_int>()) as mach_msg_type_number_t
+        (mem::size_of::<Self>() / mem::size_of::<core::ffi::c_int>()) as mach_msg_type_number_t
     }
 }
 
@@ -90,7 +90,7 @@ pub struct vm_region_basic_info {
 
 impl vm_region_basic_info {
     pub fn count() -> mach_msg_type_number_t {
-        (mem::size_of::<Self>() / mem::size_of::<::libc::c_int>()) as mach_msg_type_number_t
+        (mem::size_of::<Self>() / mem::size_of::<core::ffi::c_int>()) as mach_msg_type_number_t
     }
 }
 
@@ -98,37 +98,37 @@ impl vm_region_basic_info {
 #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
 pub struct vm_region_extended_info {
     pub protection: vm_prot_t,
-    pub user_tag: ::libc::c_uint,
-    pub pages_resident: ::libc::c_uint,
-    pub pages_shared_now_private: ::libc::c_uint,
-    pub pages_swapped_out: ::libc::c_uint,
-    pub pages_dirtied: ::libc::c_uint,
-    pub ref_count: ::libc::c_uint,
+    pub user_tag: core::ffi::c_uint,
+    pub pages_resident: core::ffi::c_uint,
+    pub pages_shared_now_private: core::ffi::c_uint,
+    pub pages_swapped_out: core::ffi::c_uint,
+    pub pages_dirtied: core::ffi::c_uint,
+    pub ref_count: core::ffi::c_uint,
     pub shadow_depth: ::libc::c_ushort,
     pub external_pager: ::libc::c_uchar,
     pub share_mode: ::libc::c_uchar,
-    pub pages_reusable: ::libc::c_uint,
+    pub pages_reusable: core::ffi::c_uint,
 }
 
 impl vm_region_extended_info {
     pub fn count() -> mach_msg_type_number_t {
-        (mem::size_of::<Self>() / mem::size_of::<::libc::c_int>()) as mach_msg_type_number_t
+        (mem::size_of::<Self>() / mem::size_of::<core::ffi::c_int>()) as mach_msg_type_number_t
     }
 }
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
 pub struct vm_region_top_info {
-    pub obj_id: ::libc::c_uint,
-    pub ref_count: ::libc::c_uint,
-    pub private_pages_resident: ::libc::c_uint,
-    pub shared_pages_resident: ::libc::c_uint,
+    pub obj_id: core::ffi::c_uint,
+    pub ref_count: core::ffi::c_uint,
+    pub private_pages_resident: core::ffi::c_uint,
+    pub shared_pages_resident: core::ffi::c_uint,
     pub share_mode: ::libc::c_uchar,
 }
 
 impl vm_region_top_info {
     pub fn count() -> mach_msg_type_number_t {
-        (mem::size_of::<Self>() / mem::size_of::<::libc::c_int>()) as mach_msg_type_number_t
+        (mem::size_of::<Self>() / mem::size_of::<core::ffi::c_int>()) as mach_msg_type_number_t
     }
 }
 
@@ -139,12 +139,12 @@ pub struct vm_region_submap_info {
     pub max_protection: vm_prot_t,
     pub inheritance: vm_inherit_t,
     pub offset: u32,
-    pub user_tag: ::libc::c_uint,
-    pub pages_resident: ::libc::c_uint,
-    pub pages_shared_now_private: ::libc::c_uint,
-    pub pages_swapped_out: ::libc::c_uint,
-    pub pages_dirtied: ::libc::c_uint,
-    pub ref_count: ::libc::c_uint,
+    pub user_tag: core::ffi::c_uint,
+    pub pages_resident: core::ffi::c_uint,
+    pub pages_shared_now_private: core::ffi::c_uint,
+    pub pages_swapped_out: core::ffi::c_uint,
+    pub pages_dirtied: core::ffi::c_uint,
+    pub ref_count: core::ffi::c_uint,
     pub shadow_depth: ::libc::c_ushort,
     pub external_pager: ::libc::c_uchar,
     pub share_mode: ::libc::c_uchar,
@@ -156,7 +156,7 @@ pub struct vm_region_submap_info {
 
 impl vm_region_submap_info {
     pub fn count() -> mach_msg_type_number_t {
-        (mem::size_of::<Self>() / mem::size_of::<::libc::c_int>()) as mach_msg_type_number_t
+        (mem::size_of::<Self>() / mem::size_of::<core::ffi::c_int>()) as mach_msg_type_number_t
     }
 }
 
@@ -167,12 +167,12 @@ pub struct vm_region_submap_info_64 {
     pub max_protection: vm_prot_t,
     pub inheritance: vm_inherit_t,
     pub offset: memory_object_offset_t,
-    pub user_tag: ::libc::c_uint,
-    pub pages_resident: ::libc::c_uint,
-    pub pages_shared_now_private: ::libc::c_uint,
-    pub pages_swapped_out: ::libc::c_uint,
-    pub pages_dirtied: ::libc::c_uint,
-    pub ref_count: ::libc::c_uint,
+    pub user_tag: core::ffi::c_uint,
+    pub pages_resident: core::ffi::c_uint,
+    pub pages_shared_now_private: core::ffi::c_uint,
+    pub pages_swapped_out: core::ffi::c_uint,
+    pub pages_dirtied: core::ffi::c_uint,
+    pub ref_count: core::ffi::c_uint,
     pub shadow_depth: ::libc::c_ushort,
     pub external_pager: ::libc::c_uchar,
     pub share_mode: ::libc::c_uchar,
@@ -180,12 +180,12 @@ pub struct vm_region_submap_info_64 {
     pub behavior: vm_behavior_t,
     pub object_id: vm32_object_id_t,
     pub user_wired_count: ::libc::c_ushort,
-    pub pages_reusable: ::libc::c_uint,
+    pub pages_reusable: core::ffi::c_uint,
 }
 
 impl vm_region_submap_info_64 {
     pub fn count() -> mach_msg_type_number_t {
-        (mem::size_of::<Self>() / mem::size_of::<::libc::c_int>()) as mach_msg_type_number_t
+        (mem::size_of::<Self>() / mem::size_of::<core::ffi::c_int>()) as mach_msg_type_number_t
     }
 }
 
@@ -196,8 +196,8 @@ pub struct vm_region_submap_short_info_64 {
     pub max_protection: vm_prot_t,
     pub inheritance: vm_inherit_t,
     pub offset: memory_object_offset_t,
-    pub user_tag: ::libc::c_uint,
-    pub ref_count: ::libc::c_uint,
+    pub user_tag: core::ffi::c_uint,
+    pub ref_count: core::ffi::c_uint,
     pub shadow_depth: ::libc::c_ushort,
     pub external_pager: ::libc::c_uchar,
     pub share_mode: ::libc::c_uchar,
@@ -209,24 +209,24 @@ pub struct vm_region_submap_short_info_64 {
 
 impl vm_region_submap_short_info_64 {
     pub fn count() -> mach_msg_type_number_t {
-        (mem::size_of::<Self>() / mem::size_of::<::libc::c_int>()) as mach_msg_type_number_t
+        (mem::size_of::<Self>() / mem::size_of::<core::ffi::c_int>()) as mach_msg_type_number_t
     }
 }
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
 pub struct vm_page_info_basic {
-    pub disposition: ::libc::c_int,
-    pub ref_count: ::libc::c_int,
+    pub disposition: core::ffi::c_int,
+    pub ref_count: core::ffi::c_int,
     pub object_id: vm_object_id_t,
     pub offset: memory_object_offset_t,
-    pub depth: ::libc::c_int,
-    pub __pad: ::libc::c_int,
+    pub depth: core::ffi::c_int,
+    pub __pad: core::ffi::c_int,
 }
 
 impl vm_page_info_basic {
     pub fn count() -> mach_msg_type_number_t {
-        (mem::size_of::<Self>() / mem::size_of::<::libc::c_int>()) as mach_msg_type_number_t
+        (mem::size_of::<Self>() / mem::size_of::<core::ffi::c_int>()) as mach_msg_type_number_t
     }
 }
 

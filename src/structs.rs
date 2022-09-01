@@ -57,6 +57,6 @@ impl x86_thread_state64_t {
     }
 
     pub fn count() -> mach_msg_type_number_t {
-        (mem::size_of::<Self>() / mem::size_of::<::libc::c_int>()) as mach_msg_type_number_t
+        (mem::size_of::<Self>() / mem::size_of::<core::ffi::c_int>()) as mach_msg_type_number_t
     }
 }

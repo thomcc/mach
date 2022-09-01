@@ -6,7 +6,7 @@ extern "C" {
     static mach_task_self_: mach_port_t;
     pub fn task_for_pid(
         target_tport: mach_port_name_t,
-        pid: ::libc::c_int,
+        pid: core::ffi::c_int,
         tn: *mut mach_port_name_t,
     ) -> kern_return_t;
 }
