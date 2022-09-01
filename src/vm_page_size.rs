@@ -27,7 +27,7 @@ mod tests {
             assert!(vm_page_size > 0);
             assert!(vm_page_size % 2 == 0);
             assert_eq!(mach_vm_round_page(1), vm_page_size as mach_vm_size_t);
-            assert_eq!(vm_page_size, 4096);
+            assert!(vm_page_size == 4 * 1024 || vm_page_size == 16 * 1024);
         }
     }
 }

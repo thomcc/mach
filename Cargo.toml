@@ -12,7 +12,7 @@ repository = "https://github.com/fitzgen/mach"
 readme = "README.md"
 keywords = ["kernel", "macos", "darwin"]
 categories = ["api-bindings", "external-ffi-bindings", "no-std", "os"]
-edition = "2018"
+edition = "2021"
 
 [badges]
 travis-ci = { repository = "fitzgen/mach" }
