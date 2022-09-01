@@ -1,7 +1,7 @@
 //! This module corresponds to `mach/_structs.h`.
 
-use mem;
-use message::mach_msg_type_number_t;
+use crate::message::mach_msg_type_number_t;
+use core::mem;
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]

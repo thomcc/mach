@@ -1,8 +1,8 @@
 //! This module corresponds to `bootstrap.h`
 
-use boolean::boolean_t;
-use kern_return::kern_return_t;
-use port::mach_port_t;
+use crate::boolean::boolean_t;
+use crate::kern_return::kern_return_t;
+use crate::port::mach_port_t;
 
 pub const BOOTSTRAP_MAX_NAME_LEN: core::ffi::c_uint = 128;
 pub const BOOTSTRAP_MAX_CMD_LEN: core::ffi::c_uint = 512;
@@ -22,8 +22,8 @@ pub const BOOTSTRAP_STATUS_INACTIVE: core::ffi::c_uint = 0;
 pub const BOOTSTRAP_STATUS_ACTIVE: core::ffi::c_uint = 1;
 pub const BOOTSTRAP_STATUS_ON_DEMAND: core::ffi::c_uint = 2;
 
-pub type name_t = [::libc::c_char; 128];
-pub type cmd_t = [::libc::c_char; 512];
+pub type name_t = [core::ffi::c_char; 128];
+pub type cmd_t = [core::ffi::c_char; 512];
 pub type name_array_t = *mut name_t;
 pub type bootstrap_status_t = core::ffi::c_int;
 pub type bootstrap_status_array_t = *mut bootstrap_status_t;
@@ -35,8 +35,8 @@ extern "C" {
     pub static bootstrap_port: mach_port_t;
     pub fn bootstrap_create_server(
         bp: mach_port_t,
-        server_cmd: *mut ::libc::c_char,
-        server_uid: ::libc::uid_t,
+        server_cmd: *mut core::ffi::c_char,
+        server_uid: libc::uid_t,
         on_demand: boolean_t,
         server_port: *mut mach_port_t,
     ) -> kern_return_t;
@@ -49,28 +49,28 @@ extern "C" {
     pub fn bootstrap_parent(bp: mach_port_t, parent_port: *mut mach_port_t) -> kern_return_t;
     pub fn bootstrap_register(
         bp: mach_port_t,
-        service_name: *mut ::libc::c_char,
+        service_name: *mut core::ffi::c_char,
         sp: mach_port_t,
     ) -> kern_return_t;
     pub fn bootstrap_create_service(
         bp: mach_port_t,
-        service_name: *mut ::libc::c_char,
+        service_name: *mut core::ffi::c_char,
         sp: *mut mach_port_t,
     ) -> kern_return_t;
     pub fn bootstrap_check_in(
         bp: mach_port_t,
-        service_name: *const ::libc::c_char,
+        service_name: *const core::ffi::c_char,
         sp: *mut mach_port_t,
     ) -> kern_return_t;
     pub fn bootstrap_look_up(
         bp: mach_port_t,
-        service_name: *const ::libc::c_char,
+        service_name: *const core::ffi::c_char,
         sp: *mut mach_port_t,
     ) -> kern_return_t;
     pub fn bootstrap_status(
         bp: mach_port_t,
-        service_name: *mut ::libc::c_char,
+        service_name: *mut core::ffi::c_char,
         service_active: *mut bootstrap_status_t,
     ) -> kern_return_t;
-    pub fn bootstrap_strerror(r: kern_return_t) -> *const ::libc::c_char;
+    pub fn bootstrap_strerror(r: kern_return_t) -> *const core::ffi::c_char;
 }

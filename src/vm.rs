@@ -1,23 +1,23 @@
 //! This module roughly corresponds to `mach/mach_vm.defs`.
 
-use boolean::boolean_t;
-use kern_return::kern_return_t;
-use mach_types::{mem_entry_name_port_t, vm_task_entry_t};
-use memory_object_types::{memory_object_offset_t, memory_object_size_t};
-use message::mach_msg_type_number_t;
-use port::mach_port_t;
-use vm_attributes::{vm_machine_attribute_t, vm_machine_attribute_val_t};
-use vm_behavior::vm_behavior_t;
-use vm_inherit::vm_inherit_t;
-use vm_prot::vm_prot_t;
-use vm_purgable::vm_purgable_t;
-use vm_region::mach_vm_read_entry_t;
-use vm_region::{
+use crate::boolean::boolean_t;
+use crate::kern_return::kern_return_t;
+use crate::mach_types::{mem_entry_name_port_t, vm_task_entry_t};
+use crate::memory_object_types::{memory_object_offset_t, memory_object_size_t};
+use crate::message::mach_msg_type_number_t;
+use crate::port::mach_port_t;
+use crate::vm_attributes::{vm_machine_attribute_t, vm_machine_attribute_val_t};
+use crate::vm_behavior::vm_behavior_t;
+use crate::vm_inherit::vm_inherit_t;
+use crate::vm_prot::vm_prot_t;
+use crate::vm_purgable::vm_purgable_t;
+use crate::vm_region::mach_vm_read_entry_t;
+use crate::vm_region::{
     vm_page_info_flavor_t, vm_page_info_t, vm_region_flavor_t, vm_region_info_t,
     vm_region_recurse_info_t,
 };
-use vm_sync::vm_sync_t;
-use vm_types::{
+use crate::vm_sync::vm_sync_t;
+use crate::vm_types::{
     integer_t, mach_vm_address_t, mach_vm_offset_t, mach_vm_size_t, natural_t, vm_map_t,
     vm_offset_t, vm_size_t,
 };
@@ -61,7 +61,7 @@ extern "C" {
 
     pub fn mach_vm_read_list(
         target_task: vm_task_entry_t,
-        data_list: mach_vm_read_entry_t,
+        data_list: *mut mach_vm_read_entry_t,
         count: natural_t,
     ) -> kern_return_t;
 
@@ -200,9 +200,9 @@ extern "C" {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use kern_return::KERN_SUCCESS;
-    use traps::mach_task_self;
-    use vm_statistics::VM_FLAGS_ANYWHERE;
+    use crate::kern_return::KERN_SUCCESS;
+    use crate::traps::mach_task_self;
+    use crate::vm_statistics::VM_FLAGS_ANYWHERE;
 
     #[test]
     fn mach_vm_allocate_sanity() {
@@ -221,9 +221,9 @@ mod tests {
 
     #[test]
     fn mach_vm_region_sanity() {
-        use mem;
-        use vm_prot::{VM_PROT_EXECUTE, VM_PROT_READ};
-        use vm_region::{vm_region_basic_info_64, VM_REGION_BASIC_INFO_64};
+        use crate::vm_prot::{VM_PROT_EXECUTE, VM_PROT_READ};
+        use crate::vm_region::{vm_region_basic_info_64, VM_REGION_BASIC_INFO_64};
+        use core::mem;
         unsafe {
             let mut size = 0x10;
             let mut object_name = 0;

@@ -1,9 +1,9 @@
 //! This module corresponds to `mach/mach_port.h`
 
-use kern_return::kern_return_t;
-use mach_types::ipc_space_t;
-use message::mach_msg_type_name_t;
-use port::{mach_port_name_t, mach_port_right_t, mach_port_t};
+use crate::kern_return::kern_return_t;
+use crate::mach_types::ipc_space_t;
+use crate::message::mach_msg_type_name_t;
+use crate::port::{mach_port_name_t, mach_port_right_t, mach_port_t};
 
 extern "C" {
     pub fn mach_port_allocate(

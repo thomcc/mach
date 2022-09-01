@@ -12,7 +12,7 @@
     clippy::trivially_copy_pass_by_ref
 )]
 #![no_std]
-extern crate core;
+// extern crate core;
 
 #[cfg(not(target_vendor = "apple"))]
 compile_error!("mach requires MacOSX or iOS");
@@ -20,7 +20,7 @@ compile_error!("mach requires MacOSX or iOS");
 // #[cfg(feature = "rustc-dep-of-std")]
 // extern crate rustc_std_workspace_core as core;
 
-extern crate libc;
+// extern crate libc;
 
 #[allow(unused_imports)]
 use core::{clone, cmp, default, fmt, hash, marker, mem, option};

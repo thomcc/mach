@@ -1,10 +1,10 @@
 //! This module roughly corresponds to `mach/exc.h`.
 
-use exception_types::{exception_data_t, exception_type_t};
-use kern_return::kern_return_t;
-use message::mach_msg_type_number_t;
-use port::mach_port_t;
-use thread_status::thread_state_t;
+use crate::exception_types::{exception_data_t, exception_type_t};
+use crate::kern_return::kern_return_t;
+use crate::message::mach_msg_type_number_t;
+use crate::port::mach_port_t;
+use crate::thread_status::thread_state_t;
 
 pub const exc_MSG_COUNT: core::ffi::c_uint = 3;
 

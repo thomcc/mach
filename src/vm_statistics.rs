@@ -1,6 +1,6 @@
 //! This module roughly corresponds to `mach/vm_statistics.h`
 
-use vm_types::{integer_t, natural_t};
+use crate::vm_types::{integer_t, natural_t};
 
 pub type vm_statistics_t = *mut vm_statistics;
 pub type vm_statistics_data_t = vm_statistics;
@@ -13,9 +13,9 @@ pub type vm_statistics_data_t = vm_statistics;
 pub type pmap_statistics_t = *mut pmap_statistics;
 
 pub const VM_PAGE_QUERY_PAGE_PRESENT: integer_t = 1;
-pub const VM_PAGE_QUERY_PAGE_FICTITIOUS: integer_t = (1 << 1);
-pub const VM_PAGE_QUERY_PAGE_REF: integer_t = (1 << 2);
-pub const VM_PAGE_QUERY_PAGE_DIRTY: integer_t = (1 << 3);
+pub const VM_PAGE_QUERY_PAGE_FICTITIOUS: integer_t = 1 << 1;
+pub const VM_PAGE_QUERY_PAGE_REF: integer_t = 1 << 2;
+pub const VM_PAGE_QUERY_PAGE_DIRTY: integer_t = 1 << 3;
 
 pub const VM_MEMORY_MALLOC: core::ffi::c_uint = 1;
 pub const VM_MEMORY_MALLOC_SMALL: core::ffi::c_uint = 2;

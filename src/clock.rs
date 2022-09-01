@@ -2,10 +2,10 @@
 
 pub const clock_MSG_COUNT: core::ffi::c_uint = 3;
 
-use clock_types::{alarm_type_t, clock_attr_t, clock_flavor_t, mach_timespec_t};
-use kern_return::kern_return_t;
-use mach_types::{clock_reply_t, clock_serv_t};
-use message::mach_msg_type_number_t;
+use crate::clock_types::{alarm_type_t, clock_attr_t, clock_flavor_t, mach_timespec_t};
+use crate::kern_return::kern_return_t;
+use crate::mach_types::{clock_reply_t, clock_serv_t};
+use crate::message::mach_msg_type_number_t;
 
 extern "C" {
     pub fn clock_get_time(

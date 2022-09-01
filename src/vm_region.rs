@@ -1,13 +1,13 @@
 //! This module roughly corresponds to `mach/vm_region.h`.
 
-use boolean::boolean_t;
-use mem;
-use memory_object_types::{memory_object_offset_t, vm_object_id_t};
-use message::mach_msg_type_number_t;
-use vm_behavior::vm_behavior_t;
-use vm_inherit::vm_inherit_t;
-use vm_prot::vm_prot_t;
-use vm_types::{mach_vm_address_t, mach_vm_size_t};
+use crate::boolean::boolean_t;
+use crate::memory_object_types::{memory_object_offset_t, vm_object_id_t};
+use crate::message::mach_msg_type_number_t;
+use crate::vm_behavior::vm_behavior_t;
+use crate::vm_inherit::vm_inherit_t;
+use crate::vm_prot::vm_prot_t;
+use crate::vm_types::{mach_vm_address_t, mach_vm_size_t};
+use core::mem;
 
 pub type vm32_object_id_t = u32;
 
@@ -38,8 +38,8 @@ pub type vm_page_info_basic_t = *mut vm_page_info_basic;
 pub type vm_page_info_basic_data_t = vm_page_info_basic;
 pub type mach_vm_read_entry_t = [mach_vm_read_entry; VM_MAP_ENTRY_MAX as usize];
 
-pub const VM_REGION_INFO_MAX: core::ffi::c_int = (1 << 10);
-pub const VM_MAP_ENTRY_MAX: core::ffi::c_int = (1 << 8);
+pub const VM_REGION_INFO_MAX: core::ffi::c_int = 1 << 10;
+pub const VM_MAP_ENTRY_MAX: core::ffi::c_int = 1 << 8;
 
 pub const VM_PAGE_INFO_BASIC: vm_page_info_flavor_t = 1;
 
@@ -48,13 +48,13 @@ pub const VM_REGION_BASIC_INFO: vm_region_flavor_t = 10;
 pub const VM_REGION_EXTENDED_INFO: vm_region_flavor_t = 13;
 pub const VM_REGION_TOP_INFO: vm_region_flavor_t = 12;
 
-pub const SM_COW: ::libc::c_uchar = 1;
-pub const SM_PRIVATE: ::libc::c_uchar = 2;
-pub const SM_EMPTY: ::libc::c_uchar = 3;
-pub const SM_SHARED: ::libc::c_uchar = 4;
-pub const SM_TRUESHARED: ::libc::c_uchar = 5;
-pub const SM_PRIVATE_ALIASED: ::libc::c_uchar = 6;
-pub const SM_SHARED_ALIASED: ::libc::c_uchar = 7;
+pub const SM_COW: core::ffi::c_uchar = 1;
+pub const SM_PRIVATE: core::ffi::c_uchar = 2;
+pub const SM_EMPTY: core::ffi::c_uchar = 3;
+pub const SM_SHARED: core::ffi::c_uchar = 4;
+pub const SM_TRUESHARED: core::ffi::c_uchar = 5;
+pub const SM_PRIVATE_ALIASED: core::ffi::c_uchar = 6;
+pub const SM_SHARED_ALIASED: core::ffi::c_uchar = 7;
 
 #[repr(C, packed(4))]
 #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
@@ -66,7 +66,7 @@ pub struct vm_region_basic_info_64 {
     pub reserved: boolean_t,
     pub offset: memory_object_offset_t,
     pub behavior: vm_behavior_t,
-    pub user_wired_count: ::libc::c_ushort,
+    pub user_wired_count: core::ffi::c_ushort,
 }
 
 impl vm_region_basic_info_64 {
@@ -85,7 +85,7 @@ pub struct vm_region_basic_info {
     pub reserved: boolean_t,
     pub offset: u32,
     pub behavior: vm_behavior_t,
-    pub user_wired_count: ::libc::c_ushort,
+    pub user_wired_count: core::ffi::c_ushort,
 }
 
 impl vm_region_basic_info {
@@ -104,9 +104,9 @@ pub struct vm_region_extended_info {
     pub pages_swapped_out: core::ffi::c_uint,
     pub pages_dirtied: core::ffi::c_uint,
     pub ref_count: core::ffi::c_uint,
-    pub shadow_depth: ::libc::c_ushort,
-    pub external_pager: ::libc::c_uchar,
-    pub share_mode: ::libc::c_uchar,
+    pub shadow_depth: core::ffi::c_ushort,
+    pub external_pager: core::ffi::c_uchar,
+    pub share_mode: core::ffi::c_uchar,
     pub pages_reusable: core::ffi::c_uint,
 }
 
@@ -123,7 +123,7 @@ pub struct vm_region_top_info {
     pub ref_count: core::ffi::c_uint,
     pub private_pages_resident: core::ffi::c_uint,
     pub shared_pages_resident: core::ffi::c_uint,
-    pub share_mode: ::libc::c_uchar,
+    pub share_mode: core::ffi::c_uchar,
 }
 
 impl vm_region_top_info {
@@ -145,13 +145,13 @@ pub struct vm_region_submap_info {
     pub pages_swapped_out: core::ffi::c_uint,
     pub pages_dirtied: core::ffi::c_uint,
     pub ref_count: core::ffi::c_uint,
-    pub shadow_depth: ::libc::c_ushort,
-    pub external_pager: ::libc::c_uchar,
-    pub share_mode: ::libc::c_uchar,
+    pub shadow_depth: core::ffi::c_ushort,
+    pub external_pager: core::ffi::c_uchar,
+    pub share_mode: core::ffi::c_uchar,
     pub is_submap: boolean_t,
     pub behavior: vm_behavior_t,
     pub object_id: vm32_object_id_t,
-    pub user_wired_count: ::libc::c_ushort,
+    pub user_wired_count: core::ffi::c_ushort,
 }
 
 impl vm_region_submap_info {
@@ -173,13 +173,13 @@ pub struct vm_region_submap_info_64 {
     pub pages_swapped_out: core::ffi::c_uint,
     pub pages_dirtied: core::ffi::c_uint,
     pub ref_count: core::ffi::c_uint,
-    pub shadow_depth: ::libc::c_ushort,
-    pub external_pager: ::libc::c_uchar,
-    pub share_mode: ::libc::c_uchar,
+    pub shadow_depth: core::ffi::c_ushort,
+    pub external_pager: core::ffi::c_uchar,
+    pub share_mode: core::ffi::c_uchar,
     pub is_submap: boolean_t,
     pub behavior: vm_behavior_t,
     pub object_id: vm32_object_id_t,
-    pub user_wired_count: ::libc::c_ushort,
+    pub user_wired_count: core::ffi::c_ushort,
     pub pages_reusable: core::ffi::c_uint,
 }
 
@@ -198,13 +198,13 @@ pub struct vm_region_submap_short_info_64 {
     pub offset: memory_object_offset_t,
     pub user_tag: core::ffi::c_uint,
     pub ref_count: core::ffi::c_uint,
-    pub shadow_depth: ::libc::c_ushort,
-    pub external_pager: ::libc::c_uchar,
-    pub share_mode: ::libc::c_uchar,
+    pub shadow_depth: core::ffi::c_ushort,
+    pub external_pager: core::ffi::c_uchar,
+    pub share_mode: core::ffi::c_uchar,
     pub is_submap: boolean_t,
     pub behavior: vm_behavior_t,
     pub object_id: vm32_object_id_t,
-    pub user_wired_count: ::libc::c_ushort,
+    pub user_wired_count: core::ffi::c_ushort,
 }
 
 impl vm_region_submap_short_info_64 {

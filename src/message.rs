@@ -1,8 +1,8 @@
 //! This module corresponds to `mach/message.h`.
 
-use kern_return::kern_return_t;
-use port::{mach_port_name_t, mach_port_t};
-use vm_types::{integer_t, natural_t};
+use crate::kern_return::kern_return_t;
+use crate::port::{mach_port_name_t, mach_port_t};
+use crate::vm_types::{integer_t, natural_t};
 
 pub type mach_msg_timeout_t = natural_t;
 
@@ -188,7 +188,7 @@ impl mach_msg_port_descriptor_t {
 #[repr(C)]
 #[derive(Copy, Clone, Debug, Hash, PartialOrd, PartialEq, Eq, Ord)]
 pub struct mach_msg_ool_descriptor_t {
-    pub address: *mut ::libc::c_void,
+    pub address: *mut core::ffi::c_void,
     #[cfg(not(target_pointer_width = "64"))]
     pub size: mach_msg_size_t,
     pub deallocate: u8, // boolean_t bitfield
@@ -201,7 +201,7 @@ pub struct mach_msg_ool_descriptor_t {
 
 impl mach_msg_ool_descriptor_t {
     pub fn new(
-        address: *mut ::libc::c_void,
+        address: *mut core::ffi::c_void,
         deallocate: bool,
         copy: mach_msg_copy_options_t,
         size: u32,
@@ -220,7 +220,7 @@ impl mach_msg_ool_descriptor_t {
 #[repr(C)]
 #[derive(Copy, Clone, Debug, Hash, PartialOrd, PartialEq, Eq, Ord)]
 pub struct mach_msg_ool_ports_descriptor_t {
-    pub address: *mut ::libc::c_void,
+    pub address: *mut core::ffi::c_void,
     #[cfg(not(target_pointer_width = "64"))]
     pub count: mach_msg_size_t,
     pub deallocate: u8,  // boolean_t bitfield

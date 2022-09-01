@@ -1,6 +1,6 @@
 //! This module roughly corresponds to `mach/task_info.h`.
 
-use vm_types::{integer_t, mach_vm_address_t, mach_vm_size_t, natural_t};
+use crate::vm_types::{integer_t, mach_vm_address_t, mach_vm_size_t, natural_t};
 
 pub const TASK_INFO_MAX: core::ffi::c_uint = 1024;
 pub const TASK_BASIC_INFO_32: core::ffi::c_uint = 4;

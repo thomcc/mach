@@ -1,10 +1,10 @@
 //! This module corresponds to `mach/task.defs`.
 
-use kern_return::kern_return_t;
-use mach_types::{task_name_t, task_t, thread_act_array_t};
-use message::mach_msg_type_number_t;
-use port::mach_port_t;
-use task_info::{task_flavor_t, task_info_t};
+use crate::kern_return::kern_return_t;
+use crate::mach_types::{task_name_t, task_t, thread_act_array_t};
+use crate::message::mach_msg_type_number_t;
+use crate::port::mach_port_t;
+use crate::task_info::{task_flavor_t, task_info_t};
 
 pub type task_special_port_t = core::ffi::c_int;
 

@@ -1,8 +1,8 @@
 //! This module roughly corresponds to `mach/exception_types.h`.
 
-use port::mach_port_t;
-use thread_status::thread_state_flavor_t;
-use vm_types::integer_t;
+use crate::port::mach_port_t;
+use crate::thread_status::thread_state_flavor_t;
+use crate::vm_types::integer_t;
 
 pub const EXC_BAD_ACCESS: core::ffi::c_uint = 1;
 pub const EXC_BAD_INSTRUCTION: core::ffi::c_uint = 2;

@@ -1,6 +1,6 @@
 //! This module corresponds to `mach/thread_status.h`.
 
-use vm_types::natural_t;
+use crate::vm_types::natural_t;
 
 pub type thread_state_t = *mut natural_t;
 pub type thread_state_flavor_t = core::ffi::c_int;
